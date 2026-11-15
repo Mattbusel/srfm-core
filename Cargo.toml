@@ -1,6 +1,6 @@
 [package]
 name = "srfm-core"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.81"
 description = "SRFM bar transforms for Rust: Minkowski beta (timelike/spacelike bars), black-hole mass, rolling geodesic and the Hawking z proxy, as slice functions and streaming structs (optional ta::Next). Carved out of srfm-lab; checked against golden vectors shared with the Python package."

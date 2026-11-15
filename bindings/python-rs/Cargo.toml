@@ -1,6 +1,6 @@
 [package]
 name = "srfm-core-py"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Thin pyo3 layer over the srfm-core crate (optional Rust accelerator for the Python package). Not published."
 license = "MIT"

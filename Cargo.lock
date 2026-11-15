@@ -199,7 +199,7 @@ dependencies = [
 
 [[package]]
 name = "srfm-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde_json",
  "ta",
@@ -207,7 +207,7 @@ dependencies = [
 
 [[package]]
 name = "srfm-core-py"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "pyo3",
  "srfm-core",

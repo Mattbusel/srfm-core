@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.1.1] - 2026-11-15
+
+### Changed
+- Release archived on Zenodo for a citable DOI. No code changes.
+
 ## [0.1.0] - 2026-11-15
 
 First release, carved out of [srfm-lab](https://github.com/Mattbusel/srfm-lab) (commit `8cbfcb0`).

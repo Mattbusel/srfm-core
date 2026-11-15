@@ -5,7 +5,7 @@ type: software
 authors:
   - family-names: Busel
     given-names: Matthew
-version: 0.1.0
+version: 0.1.1
 date-released: 2026-11-15
 license: MIT
 repository-code: "https://github.com/Mattbusel/srfm-core"

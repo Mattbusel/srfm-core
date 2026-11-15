@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "srfm-core"
-version = "0.1.0"
+version = "0.1.1"
 description = "SRFM bar transforms (Minkowski beta, black-hole mass, geodesic, Hawking z) as numpy/pandas functions, streaming classes, a vectorbt indicator and a freqtrade helper. Carved out of srfm-lab, with golden vectors shared with the Rust crate."
 readme = "PYPI.md"
 license = "MIT"

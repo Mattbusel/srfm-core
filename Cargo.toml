@@ -1,0 +1,46 @@
+[package]
+name = "srfm-core"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.81"
+description = "SRFM bar transforms for Rust: Minkowski beta (timelike/spacelike bars), black-hole mass, rolling geodesic and the Hawking z proxy, as slice functions and streaming structs (optional ta::Next). Carved out of srfm-lab; checked against golden vectors shared with the Python package."
+authors = ["Matthew Busel"]
+license = "MIT"
+repository = "https://github.com/Mattbusel/srfm-core"
+homepage = "https://github.com/Mattbusel/srfm-core"
+documentation = "https://docs.rs/srfm-core"
+readme = "docs/CRATE.md"
+keywords = ["trading", "indicators", "technical-analysis", "finance", "quant"]
+categories = ["finance", "mathematics", "algorithms"]
+include = [
+    "/src/**/*",
+    "/tests/**/*",
+    "/examples/*.rs",
+    "/golden/golden_vectors.json",
+    "/docs/**/*",
+    "/Cargo.toml",
+    "/LICENSE",
+    "/NOTICE",
+    "/CHANGELOG.md",
+]
+
+[features]
+default = []
+## `ta::Next` / `ta::Reset` impls so the streaming structs drop into code built on the `ta` crate.
+ta = ["dep:ta"]
+
+[dependencies]
+ta = { version = "0.5", optional = true, default-features = false }
+
+[dev-dependencies]
+serde_json = "1"
+
+[[example]]
+name = "ta_next"
+required-features = ["ta"]
+
+[package.metadata.docs.rs]
+all-features = true
+
+[workspace]
+members = [".", "bindings/python-rs"]

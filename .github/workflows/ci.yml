@@ -1,0 +1,123 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  rust:
+    name: Rust ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy -p srfm-core --all-targets --all-features -- -D warnings
+      - run: cargo test -p srfm-core
+      - run: cargo test -p srfm-core --all-features
+      - run: cargo run -p srfm-core --example bh_mass
+      - run: cargo run -p srfm-core --example ta_next --features ta
+      - run: cargo package -p srfm-core --allow-dirty
+
+  msrv:
+    name: Rust MSRV (1.81)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.81
+      - run: cargo check -p srfm-core --all-features
+
+  pyo3-bindings:
+    name: pyo3 bindings
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: dtolnay/rust-toolchain@stable
+      - name: build and check against the golden vectors
+        run: |
+          python -m venv .venv && . .venv/bin/activate
+          pip install maturin numpy pandas
+          (cd bindings/python-rs && maturin develop --release)
+          pip install ./python
+          python - <<'PY'
+          import json, math, srfm_core_rs as r
+          doc = json.load(open("golden/golden_vectors.json"))
+          for c in doc["cases"]:
+              p = c["params"]
+              close = [math.nan if v is None else v for v in c["close"]]
+              m, a, d, ctl = r.bh_mass(close, p["cf"], p["bh_form"], p["bh_collapse"], p["timelike_decay"])
+              assert a == c["expected"]["bh_active"], c["name"]
+              assert ctl == c["expected"]["ctl"], c["name"]
+          print("pyo3 bindings match", len(doc["cases"]), "golden cases")
+          PY
+
+  python:
+    name: Python ${{ matrix.python }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install "./python[test]"
+      - run: pytest -q python/tests
+
+  python-vectorbt:
+    name: Python + vectorbt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "./python[test,vbt]"
+      - run: pytest -q python/tests
+      - run: python examples/vectorbt_bhmass.py
+      - run: python examples/python_quickstart.py
+
+  golden:
+    name: Golden vectors still match srfm-lab reference
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy
+      - run: python golden/generate.py --check
+      - run: echo "b9913735834f943a7cc99689b4186b6c1a905cfaa170de3cc47c9396d6c8fce0  golden/reference/srfm_core_lab.py" | sha256sum -c -
+      - run: python golden/drift/compare_lab_variants.py
+      - name: python/ LICENSE and NOTICE are copies of the root files
+        run: cmp LICENSE python/LICENSE && cmp NOTICE python/NOTICE
+
+  python-build:
+    name: Python sdist and wheel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build twine
+      - run: python -m build python
+      - run: twine check python/dist/*

@@ -1,0 +1,16 @@
+srfm-core
+Copyright (c) 2026 Matthew Busel. Licensed under the MIT License (see LICENSE).
+
+This package is carved out of srfm-lab (https://github.com/Mattbusel/srfm-lab),
+also MIT licensed, copyright (c) 2026 Matthew Busel, at commit
+8cbfcb0551d44e3ed1c20bdae9dc805d61521c62:
+
+  * lib/srfm_core.py                  -> python/srfm_core/streaming.py,
+                                         golden/reference/srfm_core_lab.py (verbatim)
+  * crates/tick-backtest/src/bh_physics.rs -> src/lib.rs (structure; math re-ported
+                                         from lib/srfm_core.py)
+  * crates/larsa-core                 -> bindings/python-rs (pyo3 layer only)
+  * tests/test_srfm_core.py, tests/test_bh_physics.py -> python/tests, tests
+
+The SRFM transforms (Minkowski beta, black-hole mass, geodesic, Hawking proxy)
+were defined in the LARSA strategy code inside srfm-lab. See docs/PROVENANCE.md.

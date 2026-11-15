@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use these transforms, please cite them as below."
+title: "srfm-core: SRFM bar transforms (Minkowski beta, black-hole mass, geodesic, Hawking z)"
+type: software
+authors:
+  - family-names: Busel
+    given-names: Matthew
+version: 0.1.0
+date-released: 2026-11-15
+license: MIT
+repository-code: "https://github.com/Mattbusel/srfm-core"
+keywords:
+  - technical analysis
+  - trading indicators
+  - quantitative finance
+  - time series
+abstract: >-
+  Reference definitions and implementations (Python and Rust) of the SRFM bar
+  transforms from srfm-lab: per-bar Minkowski beta (TIMELIKE / SPACELIKE
+  classification against a speed-of-light return cf), black-hole mass (a
+  decaying accumulator of ordered momentum with formation and collapse
+  thresholds), a rolling log-linear geodesic with causal fraction, and a
+  Bollinger-z Hawking proxy. Ships golden test vectors generated from the
+  original implementation.
+references:
+  - type: software
+    title: srfm-lab
+    authors:
+      - family-names: Busel
+        given-names: Matthew
+    repository-code: "https://github.com/Mattbusel/srfm-lab"

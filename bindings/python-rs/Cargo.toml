@@ -1,0 +1,16 @@
+[package]
+name = "srfm-core-py"
+version = "0.1.0"
+edition = "2021"
+description = "Thin pyo3 layer over the srfm-core crate (optional Rust accelerator for the Python package). Not published."
+license = "MIT"
+repository = "https://github.com/Mattbusel/srfm-core"
+publish = false
+
+[lib]
+name = "srfm_core_rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+srfm-core = { path = "../.." }
+pyo3 = { version = "0.22", features = ["extension-module", "abi3-py39"] }

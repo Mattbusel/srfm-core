@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here. Versions follow [Semantic Versioning](https://semver.org/).
 
+## [0.1.2] - 2026-11-20 (Rust crate only)
+
+### Changed
+- New repository README (also the crates.io readme): the stance (two implementations
+  without shared test vectors are two indicators) with the drift table from
+  docs/DRIFT.md as the receipt, why it exists, why this instead of a port, why today,
+  who it is for. Cargo description and keywords match. No code change; the Python
+  package is unchanged at 0.1.1.
+
 ## [0.1.1] - 2026-11-15
 
 ### Changed

@@ -1,16 +1,15 @@
 [package]
 name = "srfm-core"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 rust-version = "1.81"
-description = "SRFM bar transforms for Rust: Minkowski beta (timelike/spacelike bars), black-hole mass, rolling geodesic and the Hawking z proxy, as slice functions and streaming structs (optional ta::Next). Carved out of srfm-lab; checked against golden vectors shared with the Python package."
+description = "If your indicator has two implementations and no shared test vectors, you have two indicators. SRFM bar transforms (Minkowski beta, black-hole mass, rolling geodesic, Hawking z) checked against the same golden vectors as the Python package. No default dependencies; optional ta::Next."
 authors = ["Matthew Busel"]
 license = "MIT"
 repository = "https://github.com/Mattbusel/srfm-core"
-homepage = "https://github.com/Mattbusel/srfm-core"
 documentation = "https://docs.rs/srfm-core"
-readme = "docs/CRATE.md"
-keywords = ["trading", "indicators", "technical-analysis", "finance", "quant"]
+readme = "README.md"
+keywords = ["trading", "indicators", "golden-vectors", "quant", "technical-analysis"]
 categories = ["finance", "mathematics", "algorithms"]
 include = [
     "/src/**/*",
@@ -22,6 +21,7 @@ include = [
     "/LICENSE",
     "/NOTICE",
     "/CHANGELOG.md",
+    "/README.md",
 ]
 
 [features]
